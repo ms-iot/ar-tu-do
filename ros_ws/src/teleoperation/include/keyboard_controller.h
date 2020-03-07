@@ -1,7 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_keycode.h>
+#include <SDL.h>
+#include <SDL_keycode.h>
 #include <algorithm>
 #include <array>
 #include <drive_msgs/drive_param.h>

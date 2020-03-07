@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 2.8.3)
 project(simulation_tools)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 11)
+endif()
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
@@ -13,10 +15,20 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(gazebo REQUIRED)
+find_package(TBB REQUIRED CONFIG)
+if (NOT TARGET TBB::tbb)
+message(FATAL_ERROR "sss")
+endif()
 
 ## Errors and Warnings
-set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wchar-subscripts -Wchkp -Wdouble-promotion -Wformat -Wnonnull -Wmain -Wswitch-bool -Winvalid-memory-model -Wunknown-pragmas -Warray-bounds -Wfloat-equal -Wlogical-op -Wpacked ")
+
+set ( GCC_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wchar-subscripts -Wchkp -Wdouble-promotion -Wformat -Wnonnull -Wmain -Wswitch-bool -Winvalid-memory-model -Wunknown-pragmas -Warray-bounds -Wfloat-equal -Wlogical-op -Wpacked ")
 # -Wpedantic cant be used because of ROS
+if(NOT MSVC)
+  set(CMAKE_CXX_FLAGS "${GCC_CMAKE_CXX_FLAGS}")
+else()
+  add_compile_options(/IGNORE:4251)
+endif()
 
 catkin_python_setup()
 
@@ -44,9 +56,11 @@ include_directories(
 
 # Declare crash detector node executable
 add_executable(crash_detector src/crash_detector.cpp)
-target_link_libraries(crash_detector ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+target_link_directories(crash_detector PRIVATE TBB::tbb)
+target_link_libraries(crash_detector ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} TBB::tbb)
 add_dependencies(crash_detector ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(chase_cam src/chase_cam.cpp)
-target_link_libraries(chase_cam ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+target_link_directories(chase_cam PRIVATE TBB::tbb)
+target_link_libraries(chase_cam ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} TBB::tbb)
 add_dependencies(chase_cam ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

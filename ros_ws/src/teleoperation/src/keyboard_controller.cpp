@@ -259,7 +259,7 @@ void KeyboardController::updateDynamicConfig()
     m_dyn_cfg_server.updateConfig(cfg);
 }
 
-int main(int argc, char** argv)
+int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "keyboard_controller");
     KeyboardController keyboard_controller;
