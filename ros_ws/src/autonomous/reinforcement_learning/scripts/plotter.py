@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui
 from topics import TOPIC_EPISODE_RESULT
 import pyqtgraph as pg
 import rospy

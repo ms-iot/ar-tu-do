@@ -5,8 +5,12 @@
   <arg name="gui" default="true"/>
   <arg name="realtime_simulation" default="true"/>
   <arg name="plot_window" default="200"/>
+  <arg name="rosbag_prefix" default="./"/>
 
   <param name="world_name" value="$(arg world)"/>
+
+  <node pkg="rosbag" type="record" name="my_rosbag" output="screen"
+        args="--all -o $(arg rosbag_prefix)"/>
 
   <include file="$(find racer_world)/launch/racer_gazebo.launch">
       <arg name="world" value="$(arg world)"/>
