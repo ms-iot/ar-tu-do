@@ -48,6 +48,8 @@
         <arg name="joystick_type" value="$(arg joystick_type)"/>
     </include>
 
+    <!-- this causes Gazebo hang and disable it for now
     <node pkg="simulation_tools" type="crash_detector" name="crash_detector" output="screen">
     </node>
+    -->
 </launch>
