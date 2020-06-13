@@ -68,11 +68,11 @@ include_directories(
 
 # Declare crash detector node executable
 add_executable(crash_detector src/crash_detector.cpp)
-target_link_directories(crash_detector PRIVATE TBB::tbb)
+#target_link_directories(crash_detector PRIVATE TBB::tbb)
 target_link_libraries(crash_detector ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} TBB::tbb)
 add_dependencies(crash_detector ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(chase_cam src/chase_cam.cpp)
-target_link_directories(chase_cam PRIVATE TBB::tbb)
+#target_link_directories(chase_cam PRIVATE TBB::tbb)
 target_link_libraries(chase_cam ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} TBB::tbb)
 add_dependencies(chase_cam ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
