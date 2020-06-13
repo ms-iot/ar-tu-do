@@ -15,9 +15,21 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(gazebo REQUIRED)
-find_package(TBB REQUIRED CONFIG)
-if (NOT TARGET TBB::tbb)
-message(FATAL_ERROR "sss")
+find_package(TBB CONFIG)
+if(NOT TBB_FOUND)
+  pkg_check_modules(TBB tbb)
+endif()
+
+if(NOT TBB_FOUND)
+  message(FATAL_ERROR "TBB is required.")
+endif()
+
+if(NOT TARGET TBB::tbb)
+  add_library(TBB::tbb INTERFACE IMPORTED)
+  set_target_properties(TBB::tbb PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIRS}
+    IMPORTED_LINK_INTERFACE_LIBRARIES ${TBB_LIBRARIES}
+  )
 endif()
 
 ## Errors and Warnings
