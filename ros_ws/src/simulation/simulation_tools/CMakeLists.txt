@@ -17,20 +17,11 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(gazebo REQUIRED)
 find_package(TBB CONFIG)
 if(NOT TBB_FOUND)
-  pkg_check_modules(TBB tbb REQUIRED)
+  pkg_check_modules(TBB tbb REQUIRED IMPORTED_TARGET)
 endif()
 
-message(STATUS "seanyen: ${TBB_INCLUDE_DIRS}")
-message(STATUS "seanyen: ${TBB_LINK_LIBRARIES}")
-message(STATUS "seanyen: ${TBB_LIBRARIES}")
-message(STATUS "seanyen: ${TBB_LIBRARY_DIRS}")
-
-if(NOT TARGET TBB::tbb)
-  add_library(TBB::tbb SHARED IMPORTED)
-  set_target_properties(TBB::tbb PROPERTIES
-    INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIRS}
-    IMPORTED_LOCATION ${TBB_LIBRARIES}
-  )
+if(TARGET PkgConfig::TBB)
+  add_library(TBB::tbb ALIAS PkgConfig::TBB)
 endif()
 
 ## Errors and Warnings
