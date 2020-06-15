@@ -20,6 +20,11 @@ if(NOT TBB_FOUND)
   pkg_check_modules(TBB tbb REQUIRED)
 endif()
 
+message(STATUS "seanyen: ${TBB_INCLUDE_DIRS}")
+message(STATUS "seanyen: ${TBB_LINK_LIBRARIES}")
+message(STATUS "seanyen: ${TBB_LIBRARIES}")
+message(STATUS "seanyen: ${TBB_LIBRARY_DIRS}")
+
 if(NOT TARGET TBB::tbb)
   add_library(TBB::tbb SHARED IMPORTED)
   set_target_properties(TBB::tbb PROPERTIES
