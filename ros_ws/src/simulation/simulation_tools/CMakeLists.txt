@@ -17,7 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(gazebo REQUIRED)
 find_package(TBB CONFIG)
 if(NOT TBB_FOUND)
-  pkg_check_modules(TBB tbb REQUIRED IMPORTED_TARGET)
+  pkg_check_modules(TBB REQUIRED IMPORTED_TARGET tbb)
 endif()
 
 if(TARGET PkgConfig::TBB)
