@@ -14,12 +14,21 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
   dynamic_reconfigure
 )
-find_package(SDL2 REQUIRED)
+
+include(FindPkgConfig)
+find_package(SDL2)
+if(NOT SDL2_FOUND)
+  pkg_search_module(SDL2 REQUIRED sdl2)
+endif()
 if(NOT TARGET SDL2::SDL2)
   string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
   set(LIBS ${SDL2_LIBRARIES})
 else()
   set(LIBS SDL2::SDL2 SDL2::SDL2main)
+endif()
+
+if(DEFINED SDL2_INCLUDE_DIR)
+  set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
 endif()
 
 ## Errors and Warnings
@@ -56,7 +65,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
-  ${SDL2_INCLUDE_DIR}
+  ${SDL2_INCLUDE_DIRS}
 )
 
 # Declare joystick controller node executable
