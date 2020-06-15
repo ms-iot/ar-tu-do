@@ -18,7 +18,7 @@ find_package(gazebo REQUIRED)
 find_package(TBB CONFIG)
 if(NOT TBB_FOUND)
   pkg_check_modules(TBB REQUIRED IMPORTED_TARGET tbb)
-  add_library(TBB::tbb ALIAS PkgConfig::TBB)
+  add_library(TBB::tbb ALIAS PkgConfig::tbb)
 endif()
 
 ## Errors and Warnings
