@@ -21,6 +21,7 @@ if(NOT TBB_FOUND)
 endif()
 
 if(TARGET PkgConfig::TBB)
+  message(STATUS "seanyen: PkgConfig::TBB")
   add_library(TBB::tbb ALIAS PkgConfig::TBB)
 endif()
 
