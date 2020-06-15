@@ -18,10 +18,6 @@ find_package(gazebo REQUIRED)
 find_package(TBB CONFIG)
 if(NOT TBB_FOUND)
   pkg_check_modules(TBB REQUIRED IMPORTED_TARGET tbb)
-endif()
-
-if(TARGET PkgConfig::TBB)
-  message(STATUS "seanyen: PkgConfig::TBB")
   add_library(TBB::tbb ALIAS PkgConfig::TBB)
 endif()
 
