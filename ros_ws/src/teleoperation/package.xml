@@ -20,5 +20,6 @@
   <depend>std_msgs</depend>
   <depend>joy</depend>
   <depend>dynamic_reconfigure</depend>
+  <depend>libsdl2-dev</depend>
 
 </package>
